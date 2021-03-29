@@ -1,0 +1,7 @@
+.fixed-content {
+    position: fixed;
+    overflow-y: hidden;
+    color: red;
+    height: 100vh;
+    float: left;
+}
