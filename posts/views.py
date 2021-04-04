@@ -63,6 +63,31 @@ def image(request,image_id):
 
 
 @login_required(login_url='/accounts/login/')
+def new_comment(request,image_id):
+    # global comments
+    image = get_object_or_404(Image, id=image_id)
+
+    # List of active comments for this post
+    comments = image.comments.filter(active=True)
+
+    new_comment = None
+
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewCommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.editor = current_user
+            comment.save()
+        return redirect('ftPic')
+
+    else:
+        form = NewCommentForm()
+    return render(request, 'new_comment.html', {"form": form,"image":image, "comments": comments, "image_id": image_id})
+
+
+
+@login_required(login_url='/accounts/login/')
 
 def single(request,image_id):
     # images = Image.get_image_by_id(image_id)
