@@ -152,6 +152,25 @@ class Image(models.Model):
         ordering = ['name']
 
 
+class Comment(models.Model):
+    image = models.ForeignKey(Image,on_delete=models.CASCADE,related_name='comments',null=True)
+    name = models.CharField(max_length=80,null=True)
+    email = models.EmailField(null=True)
+    body = models.TextField(null=True)
+    # created_on = models.DateTimeField(auto_now_add=True,null=True)
+    active = models.BooleanField(default=False)
+    editor = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+
+    class Meta:
+        ordering = ['name']
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)
     
 
 
