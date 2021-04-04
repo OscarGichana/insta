@@ -20,6 +20,14 @@ from django.contrib.auth import views
 
 
 urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'',include('posts.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^logout/$', views.LogoutView.as_view()),
+    url(r'members/', include('django.contrib.auth.urls')),
+    url(r'members',include('members.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
 
 
 ]
