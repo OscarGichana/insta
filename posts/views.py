@@ -63,6 +63,22 @@ def image(request,image_id):
 
 
 @login_required(login_url='/accounts/login/')
+def new_image(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.editor = current_user
+            image.save()
+        return redirect('ftPic')
+
+    else:
+        form = NewImageForm()
+    return render(request, 'new_image.html', {"form": form})
+
+
+@login_required(login_url='/accounts/login/')
 def new_comment(request,image_id):
     # global comments
     image = get_object_or_404(Image, id=image_id)
