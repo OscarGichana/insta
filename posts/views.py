@@ -55,6 +55,54 @@ def post_detail(request, year, month, day, image):
 
 
 @login_required(login_url='/accounts/login/')
+
+class PostDetailView(DetailView):
+    model = Imagecontext_object_name = 'post'
+    template_name = 'index.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+
+        like_status = False
+        if self.object.likes.filter(id=IpModel.objects.get(Ip=Ip).id).exists():
+            like_status = True
+        else:
+            like_status =False
+        context['like_status'] = like_status
+
+        return self.render_to_response(context)
+
+
+@login_required(login_url='/accounts/login/')
+
+def  get_client_ip(request):
+    x_forward_for = request.META.get('HTTP_X_FORWARD_FOR')
+    if x_forward_for:
+        Ip = x_forward_for.split(',')[0]
+    else:
+        Ip = request.META.get('REMOTE_ADDR')
+    return Ip
+
+@login_required(login_url='/accounts/login/')
+
+def postlike(request, pk):
+    global image
+    image_id = request.POST.get('blog-id')
+    image = Image.objects.filter(pk=image_id)
+    Ip = get_client_ip(request)
+    if not IpModel.objects.filter(Ip=Ip).exists():
+        IpModel.objects.create(Ip=Ip)
+        
+    if image.likes.filter(id=IpModel.objects.get(Ip=Ip).id).exists():
+        image.likes.remove(IpModel.objects.get(Ip=Ip))
+    else:
+        image.likes.add(IpModel.objects.get(Ip=Ip))
+
+    return HttpResponseRedirect(reverse('blog_like', args=[image_id]))
+
+
+@login_required(login_url='/accounts/login/')
 def like(request, id):
     image = Image.objects.get(id=id)
     image.likes += 1
