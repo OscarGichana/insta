@@ -2,7 +2,7 @@
 from django.shortcuts import render,redirect,get_object_or_404,reverse
 import datetime as dt
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
-from .models import Comment,Image,Profile,UpdateProfile
+from .models import Comment,Image,Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View, DetailView
 from django import forms

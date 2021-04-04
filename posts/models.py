@@ -7,13 +7,14 @@ from PIL import Image
 from django.core.files import File
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length = 60,null=True,blank=True)
     last_name = models.CharField(max_length = 60,null=True,blank=True)
-    pic = models.ImageField(upload_to = 'uploads/',null=True,blank=True)
+    pic = CloudinaryField('pic',null=True) 
     bio = models.TextField(null=True,blank=True)
     likes = models.IntegerField(default=0)
     
@@ -64,33 +65,6 @@ post_save.connect(create_profile, sender = User)
 
 
 
-
-class UpdateProfile (models.Model):
-    first_name = models.CharField(max_length =30)
-    last_name = models.CharField(max_length =30)
-    email = models.EmailField(blank=True)
-    phone_number = models.CharField(max_length = 10,blank =True)
-    pic = models.ImageField(upload_to = 'uploads/')
-    bio = models.TextField()
-
-    def __str__(self):
-        return self.first_name
-    class Meta:
-        ordering = ['first_name']
-    def save_profile(self):
-        self.save()
-    def delete_profile(self):
-        self.delete()
-
-
-    @classmethod
-    def get_profile_by_id(cls,id):
-        profile = cls.objects.filter(id= id).all()
-        return profile
-
-
-
-
 class IpModel(models.Model):
     Ip = models.CharField(max_length=100)
 
@@ -102,7 +76,7 @@ from tinymce.models import HTMLField
 
 class Image(models.Model):
     name = models.CharField(max_length = 60)
-    pic = models.ImageField(upload_to = 'uploads/')
+    pic = CloudinaryField('pic',null=True) 
     caption = models.TextField()
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
     likes = models.IntegerField(default=0)

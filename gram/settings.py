@@ -63,14 +63,6 @@ cloudinary.config(
 )
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'oscarrito',
-    'API_KEY': '827845982482824',
-   'API_SECRET': 'xPAnMTzigO-1yH_U-S_57A4e7Rg'
-
-}
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
