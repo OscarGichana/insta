@@ -52,6 +52,28 @@ def post_detail(request, year, month, day, image):
 
 
 
+@login_required(login_url='/accounts/login/')
+def image(request,image_id):
+    try:
+        image = Image.objects.get(id = image_id)
+    except Image.DoesNotExist:
+        raise Http404()
+    return render(request,"index.html", {"image":image})
+
+
+
+@login_required(login_url='/accounts/login/')
+
+def single(request,image_id):
+    # images = Image.get_image_by_id(image_id)
+    title = 'Image'
+    # category = Category.get_category_id(id = image_category)
+    try:
+        image_id = image_id
+        image = Image.objects.get(id = image_id)
+    except DoesNotExist:
+        raise Http404()
+    return render(request,"new_comment.html",{'title':title,"image":image,"image_id":image_id})
 
 
 @login_required(login_url='/accounts/login/')
