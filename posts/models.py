@@ -98,6 +98,60 @@ class IpModel(models.Model):
         return self.Ip
 
 
+from tinymce.models import HTMLField
+
+class Image(models.Model):
+    name = models.CharField(max_length = 60)
+    pic = models.ImageField(upload_to = 'uploads/')
+    caption = models.TextField()
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE,null=True)
+    likes = models.IntegerField(default=0)
+    editor = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    # comment = models.ForeignKey(Comment,on_delete=models.CASCADE,null=True)
+    # dislikes = models.ForeignKey('Dislike',on_delete=models.CASCADE,null=True)
+
+    @classmethod
+    def search_by_name(cls,search_term):
+        posts = cls.objects.filter(title__icontains=search_term)
+        return posts
+
+
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    @classmethod
+    def update_image(cls, id, caption):
+        update = cls.objects.filter(id = id).update(caption = caption)
+        # return update
+
+    @classmethod
+    def get_all_images(cls):
+        images = cls.objects.all()
+        return images
+
+    @classmethod
+    def get_image_by_id(cls,id):
+        image = cls.objects.filter(id= id).all()
+        return image
+
+    
+    def get_total_likes(self):
+        return self.likes.users.count()
+
+    def __str__(self):
+        return str(self.comment)[:30]
+
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+
+
     
 
 
