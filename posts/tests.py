@@ -36,5 +36,19 @@ class ImageTestClass(TestCase):
 
 
 
+class CommentTestClass(TestCase):
+
+    # Set up method
+    def setUp(self):
+        self.comment= Comment(name = 'musical', body ='experience', email ='os@gmail.com')
+# Testing  instance
+    def test_instance(self):
+        self.assertTrue(isinstance(self.comment, Comment))()
+
+
+    def test_save_method(self):
+        self.comment.save_comment()
+        comment  = Comment.objects.all()
+        self.assertTrue(len(comment)>0)
 
 
