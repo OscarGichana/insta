@@ -1,0 +1,34 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+
+
+{% block content %} 
+{% for image in images %}
+<div class="comments" style="padding: 10px;">
+  <p class="font-weight-bold">
+    {{image.comment}}
+    <!-- <span class=" text-muted font-weight-normal">
+      {{ comment.created_on }}
+    </span> -->
+  </p>
+</div>
+{% endfor %}
+<div class="container">
+  <h2> Comments on this post:</h2>
+    <br>
+    {{image.comment}} <br>
+    ......written by {{ image.comment.editor}}
+  <hr>
+  <h2> Add a New Comment Here:</h2>
+  {{form.media}}
+
+  <form  action="{%url 'new-comment' image.id%}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+
+    {% for field in form %}
+    {% bootstrap_field field %}
+    {% endfor %}
+    <input type="submit" class="btn btn-success btn-lg" value="Post">
+  </form>
+</div>
+{% endblock %}
