@@ -17,3 +17,9 @@ def index(request):
     title = 'O_world'
     return render(request, 'index.html', {"images":images})
 
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    title = 'O_world'
+    user = request.user
+    return render(request, 'profile.html')
+
