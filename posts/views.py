@@ -60,6 +60,18 @@ def image(request,image_id):
         raise Http404()
     return render(request,"index.html", {"image":image})
 
+@login_required(login_url='/accounts/login/')
+def user_profile(request,image_id):
+    title = 'O_world'
+    try:
+        image = Image.objects.get(id = image_id)
+    except Image.DoesNotExist:
+        raise Http404()
+    return render(request,"user_profile.html", {"image":image})
+
+
+    return render(request, 'user_profile.html')
+
 
 @login_required(login_url='/accounts/login/')
 def search_results(request):
