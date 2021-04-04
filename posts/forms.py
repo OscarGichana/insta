@@ -1,12 +1,9 @@
 from django import forms
-from .models import Comment
+from .models import Comment,Profile,Image
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+from django.forms import ModelForm
+from django.db import models
 
 
-class CommentForm(forms.ModelForm):
-
-    class Meta:
-        model = Comment
-        fields = ('comment',)
-        widgets = {
-          'comment': forms.Textarea(attrs={'rows':5, 'cols':40}),
-        }

@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import django_heroku
+import dj_database_url
+from decouple import config,Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +45,31 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
     'bootstrap3',
+    'members',
+    'registration',
+    'crispy_forms',
+    'cloudinary',
+    'tinymce',
+
+
 ]
+
+
+cloudinary.config( 
+  CLOUD_NAME ='oscarrito', 
+  API_KEY ='827845982482824', 
+  API_SECRET ='xPAnMTzigO-1yH_U-S_57A4e7Rg', 
+  Secure ='True'
+)
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'oscarrito',
+    'API_KEY': '827845982482824',
+   'API_SECRET': 'xPAnMTzigO-1yH_U-S_57A4e7Rg'
+
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,6 +94,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+
             ],
         },
     },
@@ -138,4 +170,5 @@ MEDIA_URL = '/media/'
 # Login
 # LOGIN_URL = '/users/login/'
 # LOGIN_REDIRECT_URL = '/'
-# LOGOUT_REDIRECT_URL = '/users/login/'
+LOGOUT_REDIRECT_URL = 'ftPic'
+LOGIN_REDIRECT_URL = 'ftPic'
