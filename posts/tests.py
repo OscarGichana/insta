@@ -20,5 +20,21 @@ class ProfileTestClass(TestCase):
         self.assertTrue(len(profile) > 0)
 
 
+class ImageTestClass(TestCase):
+
+    # Set up method
+    def setUp(self):
+        self.image= Image(name = 'musical', caption ='experience', likes ='2')
+# Testing  instance
+    def test_instance(self):
+        self.assertTrue(isinstance(self.image, Image))
+
+    def test_save_method(self):
+        self.image.save_image()
+        images  = Image.objects.all()
+        self.assertTrue(len(images)>0)
+
+
+
 
 
