@@ -18,6 +18,23 @@ import django_heroku
 import dj_database_url
 from decouple import config,Csv
 
+from django.core.wsgi import get_wsgi_application
+
+# development
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': '',
+    }
+    
+}
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -30,9 +47,6 @@ SECRET_KEY = 'h@rd7joq=p$cpv7vv6+d5mnw*w!_6+=j6o)t$_9shjdenvc709'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -56,14 +70,15 @@ INSTALLED_APPS = [
 
 
 cloudinary.config( 
-  CLOUD_NAME ='oscarrito', 
-  API_KEY ='827845982482824', 
-  API_SECRET ='xPAnMTzigO-1yH_U-S_57A4e7Rg', 
-  Secure ='True'
+  cloud_name = 'oscarrito', 
+  api_key = '827845982482824', 
+  api_secret = 'xPAnMTzigO-1yH_U-S_57A4e7Rg', 
 )
 
 
+
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -164,3 +179,6 @@ MEDIA_URL = '/media/'
 # LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'ftPic'
 LOGIN_REDIRECT_URL = 'ftPic'
+
+
+django_heroku.settings(locals())

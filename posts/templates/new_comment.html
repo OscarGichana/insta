@@ -3,10 +3,10 @@
 
 
 {% block content %} 
-{% for image in images %}
+{% for comment in comments %}
 <div class="comments" style="padding: 10px;">
   <p class="font-weight-bold">
-    {{image.comment}}
+    {{comment.body}}
     <!-- <span class=" text-muted font-weight-normal">
       {{ comment.created_on }}
     </span> -->
@@ -16,8 +16,8 @@
 <div class="container">
   <h2> Comments on this post:</h2>
     <br>
-    {{image.comment}} <br>
-    ......written by {{ image.comment.editor}}
+    {{comment.body}} <br>
+    ......written by {{ comment.editor}}
   <hr>
   <h2> Add a New Comment Here:</h2>
   {{form.media}}
