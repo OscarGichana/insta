@@ -27,7 +27,6 @@ urlpatterns = [
     url(r'^logout/$', views.LogoutView.as_view()),
     url(r'members/', include('django.contrib.auth.urls')),
     url(r'members',include('members.urls')),
-    url(r'^tinymce/', include('tinymce.urls')),
 
 
 ]
