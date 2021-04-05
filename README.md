@@ -24,7 +24,7 @@ An app where users can get to view posts by other people, like, comment ad follo
 
 ## Website Link
 
-Copy the link https://ozzyworld.herokuapp.com/ in your browser and be updated.
+Copy the link https://instagrammzzy.herokuapp.com/ in your browser and be updated.
 
 
 ## Build
