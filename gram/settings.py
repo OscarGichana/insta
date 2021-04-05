@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'bootstrap3',
     'members',
-    'registration',
+    'django_registration',
     'crispy_forms',
     'cloudinary',
     'tinymce',
